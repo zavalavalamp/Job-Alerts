@@ -5,9 +5,12 @@ url = "https://careers.nike.com/jobs?filter%5Bcategory%5D%5B0%5D=Product%20Creat
 
 html = requests.get(url).text
 
-matches = re.findall(r'/job/[^"\']+', html)
+job_ids = set(re.findall(r'R-\d+', html))
 
-print("Found:", len(matches), "job links")
+print("Found", len(job_ids), "jobs")
 
-for m in matches[:20]:
-    print(m)
+with open("seen_jobs.txt", "w") as f:
+    for job in sorted(job_ids):
+        f.write(job + "\n")
+
+print("Saved all job IDs")
