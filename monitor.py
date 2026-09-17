@@ -5,9 +5,16 @@ url = "https://careers.nike.com/jobs?filter%5Bcategory%5D%5B0%5D=Product%20Creat
 
 html = requests.get(url).text
 
-job_ids = sorted(set(re.findall(r'R-\d+', html)))
+current_jobs = set(re.findall(r'R-\d+', html))
 
-print("Found", len(job_ids), "unique jobs")
+with open("seen_jobs.txt", "r") as f:
+    seen_jobs = set(line.strip() for line in f)
 
-for job in job_ids:
-    print(job)
+new_jobs = current_jobs - seen_jobs
+
+if new_jobs:
+    print("NEW JOBS FOUND:")
+    for job in sorted(new_jobs):
+        print(job)
+else:
+    print("No new jobs found.")
