@@ -1,7 +1,5 @@
 import os
 
-recipient = os.getenv("EMAIL_RECIPIENT", "MISSING")
-
-print("Recipient value exists:", recipient != "")
-print("Recipient length:", len(recipient))
-print("Recipient first 3 chars:", recipient[:3])
+print("EMAIL_ADDRESS =", repr(os.getenv("EMAIL_ADDRESS")))
+print("EMAIL_PASSWORD =", "EXISTS" if os.getenv("EMAIL_PASSWORD") else "MISSING")
+print("EMAIL_RECIPIENT =", repr(os.getenv("EMAIL_RECIPIENT")))
