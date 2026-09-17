@@ -1,20 +1,22 @@
-import requests
-import re
+import smtplib
+import os
 
-url = "https://careers.nike.com/jobs?filter%5Bcategory%5D%5B0%5D=Product%20Creation%2C%20Development%20%26%20Management"
+sender = os.getenv("EMAIL_ADDRESS")
+password = os.getenv("EMAIL_PASSWORD")
+recipient = os.getenv("EMAIL_RECIPIENT")
 
-html = requests.get(url).text
+subject = "Nike Job Monitor Test"
 
-current_jobs = set(re.findall(r'R-\d+', html))
+body = """
+Success!
 
-with open("seen_jobs.txt", "r") as f:
-    seen_jobs = set(line.strip() for line in f)
+If you received this email, GitHub Actions can send Gmail notifications successfully.
+"""
 
-new_jobs = current_jobs - seen_jobs
+message = f"Subject: {subject}\n\n{body}"
 
-if new_jobs:
-    print("NEW JOBS FOUND:")
-    for job in sorted(new_jobs):
-        print(job)
-else:
-    print("No new jobs found.")
+with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:
+    smtp.login(sender, password)
+    smtp.sendmail(sender, recipient, message)
+
+print("Email sent successfully")
