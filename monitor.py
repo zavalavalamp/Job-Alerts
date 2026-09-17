@@ -4,5 +4,4 @@ url = "https://careers.nike.com/jobs?filter%5Bcategory%5D%5B0%5D=Product%20Creat
 
 response = requests.get(url)
 
-print("Status code:", response.status_code)
-print("Page length:", len(response.text))
+print(response.text[:5000])
