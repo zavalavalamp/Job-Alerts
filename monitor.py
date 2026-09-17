@@ -1,17 +1,21 @@
 import smtplib
 import os
-***m email.mime.text import MIMETex***sender = os.getenv("EMAIL_ADDRES***
-password = os.getenv("EMAIL_PAS***RD")
-recipient = os.getenv("EMAI***ECIPIENT")
+from email.mime.text import MIMEText
+
+sender = os.getenv("EMAIL_ADDRESS")
+password = os.getenv("EMAIL_PASSWORD")
+recipient = os.getenv("EMAIL_RECIPIENT")
 
 msg = MIMEText(
-    ***ccess!\n\nYour Nike Job Monitor ***il test worked."
+    "Success!\n\nYour Nike Job Monitor email test worked."
 )
 
-msg["Subject***= "Nike Job Monitor Test"
-msg["F***"] = sender
-msg["To"] = recipien***with smtplib.SMTP_SSL("smtp.gmai***om", 465) as server:
-    server.***in(sender, password)
-    server***ndmail(sender, [recipient], msg.***string())
+msg["Subject"] = "Nike Job Monitor Test"
+msg["From"] = sender
+msg["To"] = recipient
 
-print("Email sent suc***sfully")
+with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+    server.login(sender, password)
+    server.sendmail(sender, [recipient], msg.as_string())
+
+print("Email sent successfully")
