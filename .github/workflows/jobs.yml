@@ -6,8 +6,12 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  issues: write
+  contents: write
+
 jobs:
-  test:
+  monitor:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,5 +21,5 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run Python
+      - name: Run Monitor
         run: python monitor.py
