@@ -1,9 +1,7 @@
 import os
 
-recipient = os.getenv("EMAIL_RECIPIENT")
+recipient = os.getenv("EMAIL_RECIPIENT", "MISSING")
 
-print("Recipient raw:")
-print(repr(recipient))
-
-print("Length:")
-print(len(recipient))
+print("Recipient value exists:", recipient != "")
+print("Recipient length:", len(recipient))
+print("Recipient first 3 chars:", recipient[:3])
