@@ -1,14 +1,7 @@
 name: Nike Job Monitor
 
 on:
-  schedule:
-    - cron: '0 */6 * * *'
-
   workflow_dispatch:
-
-permissions:
-  issues: write
-  contents: write
 
 jobs:
   monitor:
@@ -21,5 +14,10 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run Monitor
+      - name: Send Test Email
         run: python monitor.py
+        env:
+          EMAIL_ADDRESS: ${{ secrets.EMAIL_ADDRESS }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_RECIPIENT: ${{ secrets.EMAIL_RECIPIENT }}
+``
