@@ -4,4 +4,18 @@ url = "https://careers.nike.com/jobs?filter%5Bcategory%5D%5B0%5D=Product%20Creat
 
 response = requests.get(url)
 
-print(response.text[:5000])
+text = response.text
+
+keywords = [
+    "api",
+    "jobs",
+    "search",
+    "graphql",
+    "__NEXT_DATA__",
+    "jobId",
+    "opening"
+]
+
+for keyword in keywords:
+    print(f"\n=== SEARCHING FOR: {keyword} ===")
+    print(keyword.lower() in text.lower())
